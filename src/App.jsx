@@ -1,34 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Public from "./components/Public";
+import MainLayout from "./components/MainLayout";
+
+import Login from "./features/auth/Login";
+import Register from "./features/auth/Register";
+import Prefetch from "./features/auth/Prefetch";
+import PersistLogin from "./features/auth/PersistLogin";
+import RequireAuth from "./features/auth/RequireAuth";
+
+import { ROLES } from "./config/roles";
+import useTitle from "./hooks/useTitle";
+
+import Home from "./features/home/Home";
+import SearchResult from "./features/home/SearchResult";
+
+import StatusPage from "./features/status/StatusPage";
+import EditStatus from "./features/status/EditStatus";
+
+import Profile from "./features/profile/Profile";
+import EditProfile from "./features/profile/EditProfile";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
-  const [count, setCount] = useState(0)
+  useTitle("Cuapan App");
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+
+        <Route element={<PersistLogin />}>
+          <Route
+            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+          >
+            <Route index element={<Public />} />
+            <Route element={<Prefetch />}>
+              <Route path="home" element={<MainLayout />}>
+                <Route index element={<Home />} />
+              </Route>
+              {/* <Route path="search/:keyword" element={<MainLayout />}>
+                <Route index element={<SearchResult />} />
+              </Route> */}
+              <Route path=":username" element={<MainLayout />}>
+                <Route index element={<Profile />} />
+                <Route path="status">
+                  <Route index element={<Profile />} />
+                  <Route path=":id">
+                    <Route index element={<StatusPage />} />
+                    <Route path="edit">
+                      <Route index element={<EditStatus />} />
+                    </Route>
+                  </Route>
+                </Route>
+                <Route path="edit">
+                  <Route index element={<EditProfile />} />
+                </Route>
+              </Route>
+            </Route>
+          </Route>
+        </Route>
+        <Route path="*" element={<Layout />}>
+          <Route index element={<ErrorPage message={"Page not found"} />} />
+        </Route>
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
