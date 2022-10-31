@@ -21,6 +21,7 @@ import EditStatus from "./features/status/EditStatus";
 import Profile from "./features/profile/Profile";
 import EditProfile from "./features/profile/EditProfile";
 import ErrorPage from "./components/ErrorPage";
+import About from "./components/About";
 
 function App() {
   useTitle("Cuapan App");
@@ -28,21 +29,20 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
 
         <Route element={<PersistLogin />}>
           <Route
             element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
           >
-            <Route index element={<Public />} />
             <Route element={<Prefetch />}>
               <Route path="home" element={<MainLayout />}>
                 <Route index element={<Home />} />
               </Route>
-              {/* <Route path="search/:keyword" element={<MainLayout />}>
-                <Route index element={<SearchResult />} />
-              </Route> */}
+              <Route path="about" element={<MainLayout />}>
+                <Route index element={<About />} />
+              </Route>
               <Route path=":username" element={<MainLayout />}>
                 <Route index element={<Profile />} />
                 <Route path="status">

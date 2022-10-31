@@ -32,6 +32,10 @@ html {
   padding: 15px;
 }
 
+.form-signup {
+  max-width: 330px;
+}
+
 .form-signin .form-floating:focus-within {
   z-index: 2;
 }

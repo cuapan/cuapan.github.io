@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials } from '../../features/auth/authSlice'
 
+//https://cuapan-backend.taufiqidrus.repl.co
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://cuapan-backend.taufiqidrus.repl.co',
   credentials: 'include',
