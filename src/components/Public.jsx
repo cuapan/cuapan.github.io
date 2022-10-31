@@ -8,11 +8,13 @@ const Public = () => {
   return (
     <>
       <PublicHeader />
-      <div class="container">
-        <div class="row">
-          <div class="col-8 text-center text-lg-start ">
-            <h1 class="display-4 fw-bold lh-1">Welcome to the Cuapan App</h1>
-            <p class="col-lg-10 fs-4">
+      <div className="container">
+        <div className="row">
+          <div className="col-8 text-center text-lg-start ">
+            <h1 className="display-4 fw-bold lh-1">
+              Welcome to the Cuapan App
+            </h1>
+            <p className="col-lg-10 fs-4">
               To use the app, start the replit server, then create an account or
               login to an existing one
             </p>
@@ -24,7 +26,7 @@ const Public = () => {
               Start server <ArrowUpRight />
             </a>
           </div>
-          <div class="col-4">
+          <div className="col-4">
             <RegisterPublic />
           </div>
         </div>
